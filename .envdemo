@@ -1,17 +1,17 @@
-DB_TYPE=
-DB_HOST =
-DB_POST=
-DB_USER =
-DB_PASSWORD=
-DB_NAME=
+PGHOST=127.0.0.1
+PGPORT=5432
+PGUSER=postgres
+PGPASSWORD=postgres
+PGDATABASE=auth_db
+DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/auth_db
 PORT=4000
-NODE_ENV=
+NODE_ENV=developement
 # other
-JWT_SECRET=
-JWT_EXPIRES_IN= 
+JWT_SECRET=1zfZDeZ7bKEOZJJ+Yt9YB506VmC9QdmR+bmoAwn9ZU7FkEsTmUI9H7sgnguG9NdI2yMsaBSbTWrzisW/gJtGcQ==
 
+JWT_EXPIRES_IN= 1d
 # email
-MAIL_HOST=
-MAIL_USER=
-MAIL_PASSWORD=
-MAIL_FROM=
+MAIL_HOST=smtp.ethereal.email
+MAIL_USER=burnice.gorczany@ethereal.email
+MAIL_PASSWORD=BEqvVdqHBp8XNDPuaT
+MAIL_FROM=testing

@@ -1,7 +1,7 @@
 import { BadRequestException, ForbiddenException, HttpException, HttpStatus, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { SignupDto } from './dtos/signup.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dtos/login.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
@@ -85,6 +85,7 @@ export class AuthService {
             'welcome.email',
             new EmailEvent(emailData),
         );
+         console.log('Event emitted successfully'); 
         return res;
     }
 
@@ -149,7 +150,7 @@ export class AuthService {
         try {
 
             const user = await this.userRepo.findOneBy({ email });
-
+            console.log('User found for forgot password:', user);
             if (user) {
                 //If user exists, generate password reset link
                 const expiryDate = new Date();

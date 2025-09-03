@@ -21,13 +21,13 @@ import { join } from 'path';
         // defaults: {
         //   from: `"No Reply" <${config.get('MAIL_FROM')}>`,
         // },
-        template: {
-          dir: join(__dirname, '/mail/templates'),
-          adapter: new HandlebarsAdapter(),
-          options: {
-            strict: true,
-          },
+     template: {
+        dir: join(process.cwd(), 'src/mail/templates'), // Use source directory directly
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
         },
+      },
       }),
       inject: [ConfigService],
     }),

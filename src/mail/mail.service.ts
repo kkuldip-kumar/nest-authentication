@@ -13,7 +13,7 @@ export class MailService {
       to: data.user.email,
       // from: '"Support Team" <support@example.com>', // override default from
       subject: 'Welcome to Nice App! Confirm your Email',
-      template: './welcome',
+      template: 'welcome',
       context: {
         name: data.user.name,
         confirmation_url,
@@ -27,7 +27,7 @@ export class MailService {
       await this.mailerService.sendMail({
         to: email,
         subject: 'Password Reset Request',
-        template: './password-reset',
+        template: 'password-reset',
         context: {
           resetUrl,
         },

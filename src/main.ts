@@ -7,14 +7,13 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('port');
+  const port = process.env.PORT|| 3000;
   app.enableCors({ origin: "*" });
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
     }),
-
     new ValidationPipe({
       transform: true,
       transformOptions: { groups: ['transform'] },

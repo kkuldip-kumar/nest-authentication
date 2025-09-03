@@ -13,13 +13,13 @@ export class EmailService {
   }
   @OnEvent('welcome.email')
   async notifyUser(payload: EmailEvent) {
-    this.mailService.sendUserWelcome(payload.data)
     console.log(`Hello user, has been added Enjoy.`, payload)
+    this.mailService.sendUserWelcome(payload.data)
   }
   @OnEvent('reset.password')
   async resetUserPassword(payload: EmailEvent) {
-    this.mailService.sendPasswordResetEmail(payload.data.user.email, payload.data.token)
     console.log(`reset password !`, payload)
+    this.mailService.sendPasswordResetEmail(payload.data.user.email, payload.data.token)
   }
 
 }

@@ -10,6 +10,7 @@ import { typeormConfig } from './config/database.config';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { EmailModule } from './email/email.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormConfig),
@@ -19,6 +20,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       rootPath: join(__dirname, '..', 'views'),
     }),
     EventEmitterModule.forRoot(),
+    EmailModule, 
     AuthModule,
     UsersModule,
   ],

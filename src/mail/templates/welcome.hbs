@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>App</title>
-  </head>
-  <body>
-   <p>name:{{ name }}</p> 
-   <p>URL:{{confirmation_url}}</p>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome {{name}}!</h1>
+    <p>Thank you for signing up for our application!</p>
+    <p>Please click the link below to confirm your email:</p>
+    <a href="{{confirmation_url}}">Confirm Email</a>
+    <p>If you didn't create an account, please ignore this email.</p>
+</body>
 </html>
