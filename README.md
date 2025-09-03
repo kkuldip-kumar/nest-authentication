@@ -1,73 +1,200 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS Auth & User Management Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A **NestJS-based authentication and user management API** with JWT authentication, PostgreSQL integration, and email services.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* Authentication (signup, login, refresh tokens, password reset)
+* PostgreSQL with TypeORM integration
+* Email service with Handlebars templates
+* Modular architecture (Auth, Users, Mail, Config)
+* Docker & Docker Compose support
 
-## Installation
+---
 
-```bash
-$ pnpm install
+## 📂 Project Structure
+
+```
+src/
+ ├── auth/         # Authentication (controllers, services, DTOs, entities)
+ ├── users/        # User module (CRUD, DTOs, entities)
+ ├── mail/         # Email service and templates
+ ├── config/       # App & database configurations
+ ├── middleware/   # Middlewares (Auth, etc.)
+ ├── guards/       # Auth and JWT guards
+ └── main.ts       # Entry point
 ```
 
-## Running the app
+---
+
+## ⚙️ Prerequisites
+
+* [Node.js](https://nodejs.org/) v18+
+* [pnpm](https://pnpm.io/) (or npm/yarn)
+* [PostgreSQL](https://www.postgresql.org/) v15+
+* [Docker](https://www.docker.com/) (if using containerized setup)
+
+---
+
+## 🔑 Environment Variables
+
+Copy `.envdemo` as `.env` and update values if needed:
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+cp .envdemo .env
 ```
 
-## Test
+Example `.env`:
+
+```env
+PGHOST=127.0.0.1
+PGPORT=5432
+PGUSER=postgres
+PGPASSWORD=postgres
+PGDATABASE=auth_db
+DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/auth_db
+
+PORT=4000
+NODE_ENV=development
+
+JWT_SECRET=your-secret-key
+JWT_EXPIRES_IN=1d
+
+MAIL_HOST=smtp.ethereal.email
+MAIL_USER=burnice.gorczany@ethereal.email
+MAIL_PASSWORD=BEqvVdqHBp8XNDPuaT
+MAIL_FROM=testing
+```
+
+---
+
+## 🖥️ Local Development Setup
+
+1. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+   *(or use `npm install` if not using pnpm)*
+
+2. **Setup PostgreSQL**
+
+   ```bash
+   createdb auth_db
+   ```
+
+   Or connect via Dockerized PostgreSQL (see Docker section).
+
+3. **Run migrations (if using TypeORM CLI)**
+
+   ```bash
+   pnpm run migration:run
+   ```
+
+4. **Start development server**
+
+   ```bash
+   pnpm run start:dev
+   ```
+
+5. **Access API**
+
+   * Base URL: `http://localhost:4000`
+   * Example endpoints:
+
+     * `POST /auth/signup`
+     * `POST /auth/login`
+     * `GET /users`
+
+---
+
+## 🐳 Run with Docker
+
+This project includes a `Dockerfile` and `docker-compose.yml`.
+
+### 1. Build and Run Containers
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+docker-compose up --build
 ```
 
-## Support
+This will:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+* Start a `postgres` container
+* Start your NestJS app container
 
-## Stay in touch
+### 2. Verify Services
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+docker ps
+```
 
-## License
+You should see both `nestjs-app` and `postgres` running.
 
-Nest is [MIT licensed](LICENSE).
+### 3. Access the API
+
+* App: [http://localhost:4000](http://localhost:4000)
+* PostgreSQL: on port `5432`
+
+---
+
+## 🛠️ Useful Commands
+
+### Run in watch mode
+
+```bash
+pnpm run start:dev
+```
+
+### Build project
+
+```bash
+pnpm run build
+```
+
+### Run tests
+
+```bash
+pnpm run test
+pnpm run test:e2e
+pnpm run test:cov
+```
+
+### Stop Docker containers
+
+```bash
+docker-compose down
+```
+
+---
+
+## 📬 API Examples (via cURL)
+
+### Signup
+
+```bash
+curl -X POST http://localhost:4000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"secret123"}'
+```
+
+### Login
+
+```bash
+curl -X POST http://localhost:4000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"secret123"}'
+```
+
+---
+
+## 📖 License
+
+MIT
+
+---
+
+👉 Do you also want me to include **Swagger API setup instructions** (since many NestJS projects use it), or just keep it minimal for running the project?
