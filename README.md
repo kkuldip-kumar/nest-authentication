@@ -64,7 +64,7 @@ JWT_EXPIRES_IN=1d
 
 MAIL_HOST=smtp.ethereal.email
 MAIL_USER=burnice.gorczany@ethereal.email
-MAIL_PASSWORD=BEqvVdqHBp8XNDPuaT
+MAIL_PASSWORD=
 MAIL_FROM=testing
 ```
 
@@ -196,5 +196,3 @@ curl -X POST http://localhost:4000/auth/login \
 MIT
 
 ---
-
-👉 Do you also want me to include **Swagger API setup instructions** (since many NestJS projects use it), or just keep it minimal for running the project?
